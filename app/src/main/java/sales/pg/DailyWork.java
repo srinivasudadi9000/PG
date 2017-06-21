@@ -174,12 +174,11 @@ public class DailyWork extends Activity implements View.OnClickListener{
                 progressDialog.show();
 
 
-              /*  new DailyWork.Mylatestnews(datepicker.getText().toString(),arearoute.getText().toString()
+                new DailyWork.Mylatestnews(datepicker.getText().toString(),arearoute.getText().toString()
                 ,delear_name.getText().toString(),person_met.getText().toString(),contactnumber.getText().toString()
                         ,fromtime.getText().toString(),totime.getText().toString(),purposeofvisit.getText().toString(),
                         nextvisitdate.getText().toString(),proposeorder.getText().toString(),
                         areacompetitors.getText().toString(),remarks.getText().toString()).execute();
-*/
                 break;
 
         }
@@ -208,8 +207,8 @@ public class DailyWork extends Activity implements View.OnClickListener{
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
-            //  Toast.makeText(getBaseContext(),jsonObject.toString(),Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
+            Toast.makeText(getBaseContext(),jsonObject.toString(),Toast.LENGTH_SHORT).show();
             try {
                 String username = jsonObject.getString("username");
                 if (username.equals("null")){
@@ -227,26 +226,20 @@ public class DailyWork extends Activity implements View.OnClickListener{
         protected JSONObject doInBackground(String... strings) {
             nameValuePairs = new ArrayList<NameValuePair>();
 
-            this.datepicker = datepicker;this.arearoute = arearoute;this.delear_name =delear_name;
-            this.person_met = person_met;this.contactnumber = contactnumber;this.fromtime = fromtime;
-            this.totime = totime;this.purposeofvisit= purposeofvisit;this.nextvisitdate = nextvisitdate;
-            this.proposeorder= proposeorder;this.areacompetitors = areacompetitors;this.remarks = remarks;
+            nameValuePairs.add(new BasicNameValuePair("ddate",datepicker));
+            nameValuePairs.add(new BasicNameValuePair("areaandroute",arearoute));
+            nameValuePairs.add(new BasicNameValuePair("dealername",delear_name));
+            nameValuePairs.add(new BasicNameValuePair("personmet",person_met));
+            nameValuePairs.add(new BasicNameValuePair("contactnumber",contactnumber));
+            nameValuePairs.add(new BasicNameValuePair("fromtime",fromtime));
+            nameValuePairs.add(new BasicNameValuePair("totime",totime));
+            nameValuePairs.add(new BasicNameValuePair("purposevisit",purposeofvisit));
+            nameValuePairs.add(new BasicNameValuePair("nextvisitdate",nextvisitdate));
+            nameValuePairs.add(new BasicNameValuePair("purposeorders",proposeorder));
+            nameValuePairs.add(new BasicNameValuePair("areacompetitors",areacompetitors));
+            nameValuePairs.add(new BasicNameValuePair("remarks",remarks));
 
-            nameValuePairs.add(new BasicNameValuePair("username",datepicker));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-            nameValuePairs.add(new BasicNameValuePair("password",arearoute));
-
-            json = JSONParser.makeServiceCall("http://www.pg-iglobal.com/Arthmetic.asmx/insertcustomers",2, nameValuePairs);
+            json = JSONParser.makeServiceCall("http://www.pg-iglobal.com/Arthmetic.asmx/insertdailywork",2, nameValuePairs);
             //  json = JSONParser.makeServiceCall("http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms", 1, nameValuePairs);
             return json;
         }
